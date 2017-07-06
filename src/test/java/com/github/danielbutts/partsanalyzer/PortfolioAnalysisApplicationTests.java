@@ -1,4 +1,4 @@
-package com.github.danielbutts.portfolioanalysisapi;
+package com.github.danielbutts.partsanalyzer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PortfolioAnalysisApiApplicationTests {
+public class PortfolioAnalysisApplicationTests {
 
 	@Test
 	public void contextLoads() {
