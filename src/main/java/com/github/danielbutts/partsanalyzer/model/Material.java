@@ -1,4 +1,4 @@
-package com.github.danielbutts.partsanalyzer.material;
+package com.github.danielbutts.partsanalyzer.model;
 
 import javax.persistence.*;
 

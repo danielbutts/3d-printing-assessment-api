@@ -1,5 +1,6 @@
-package com.github.danielbutts.partsanalyzer.user;
+package com.github.danielbutts.partsanalyzer.repository;
 
+import com.github.danielbutts.partsanalyzer.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

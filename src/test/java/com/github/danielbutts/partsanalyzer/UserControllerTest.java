@@ -1,8 +1,8 @@
 package com.github.danielbutts.partsanalyzer;
 
-import com.github.danielbutts.partsanalyzer.user.User;
-import com.github.danielbutts.partsanalyzer.user.UserController;
-import com.github.danielbutts.partsanalyzer.user.UserRepository;
+import com.github.danielbutts.partsanalyzer.model.User;
+import com.github.danielbutts.partsanalyzer.controller.UserController;
+import com.github.danielbutts.partsanalyzer.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

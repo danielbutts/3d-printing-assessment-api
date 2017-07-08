@@ -1,5 +1,6 @@
-package com.github.danielbutts.partsanalyzer.material;
+package com.github.danielbutts.partsanalyzer.repository;
 
+import com.github.danielbutts.partsanalyzer.model.Material;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

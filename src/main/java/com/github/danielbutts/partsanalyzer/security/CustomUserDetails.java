@@ -4,7 +4,7 @@ package com.github.danielbutts.partsanalyzer.security;
  * Created by danielbutts on 7/7/17.
  */
 
-import com.github.danielbutts.partsanalyzer.user.User;
+import com.github.danielbutts.partsanalyzer.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

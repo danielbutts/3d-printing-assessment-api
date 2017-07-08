@@ -1,8 +1,8 @@
 package com.github.danielbutts.partsanalyzer.security;
 
-import com.github.danielbutts.partsanalyzer.user.User;
-import com.github.danielbutts.partsanalyzer.user.UserRepository;
-import com.github.danielbutts.partsanalyzer.user.UserRoleRepository;
+import com.github.danielbutts.partsanalyzer.model.User;
+import com.github.danielbutts.partsanalyzer.repository.UserRepository;
+import com.github.danielbutts.partsanalyzer.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

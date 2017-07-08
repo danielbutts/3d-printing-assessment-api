@@ -1,5 +1,7 @@
-package com.github.danielbutts.partsanalyzer.material;
+package com.github.danielbutts.partsanalyzer.controller;
 
+import com.github.danielbutts.partsanalyzer.repository.MaterialRepository;
+import com.github.danielbutts.partsanalyzer.model.Material;
 import org.springframework.web.bind.annotation.*;
 
 /**

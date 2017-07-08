@@ -1,5 +1,7 @@
-package com.github.danielbutts.partsanalyzer.user;
+package com.github.danielbutts.partsanalyzer.controller;
 
+import com.github.danielbutts.partsanalyzer.model.User;
+import com.github.danielbutts.partsanalyzer.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
