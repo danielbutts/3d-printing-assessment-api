@@ -1,4 +1,4 @@
-package com.github.danielbutts.partsanalyzer;
+package com.github.danielbutts.partsanalyzer.user;
 
 import javax.persistence.*;
 
@@ -10,6 +10,18 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
+    public User () {
+    }
+
+    public User (User user) {
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.username = user.username;
+        this.company = user.company;
+        this.email = user.email;
+        this.enabled = user.enabled;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,6 +31,8 @@ public class User {
     private String username;
     private String company;
     private String email;
+    private String password;
+    private int enabled;
 
     public Long getId() {
         return id;
@@ -66,5 +80,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
     }
 }

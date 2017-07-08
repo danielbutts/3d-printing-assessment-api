@@ -1,4 +1,4 @@
-package com.github.danielbutts.partsanalyzer;
+package com.github.danielbutts.partsanalyzer.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserById(Long id);
+
+    User findUserByUsername(String username);
 
 }
 

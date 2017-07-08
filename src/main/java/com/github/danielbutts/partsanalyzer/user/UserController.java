@@ -1,5 +1,7 @@
-package com.github.danielbutts.partsanalyzer;
+package com.github.danielbutts.partsanalyzer.user;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-//@CrossOrigin
 public class UserController {
 
     private final UserRepository repository;
@@ -33,6 +34,11 @@ public class UserController {
         if (user.getFirstName() == null) {
             throw new Exception("Required field 'firstName' was missing.");
         }
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        System.out.println(hashedPassword);
+        user.setPassword(hashedPassword);
         return this.repository.save(user);
     }
 
