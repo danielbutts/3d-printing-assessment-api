@@ -31,10 +31,6 @@ public class UserController {
 
     @PostMapping("")
     public User create(@RequestBody User user) throws Exception {
-        if (user.getFirstName() == null) {
-            throw new Exception("Required field 'firstName' was missing.");
-        }
-
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         System.out.println(hashedPassword);
@@ -45,7 +41,6 @@ public class UserController {
     @PatchMapping("")
     public User update(@RequestBody User user) {
         User existingUser = this.repository.findUserById(user.getId());
-//        System.out.println("BOOOBOBOBOB PATCH /users "+user.toString());
 
         if (user.getCompany() != null) {
             existingUser.setCompany(user.getCompany());

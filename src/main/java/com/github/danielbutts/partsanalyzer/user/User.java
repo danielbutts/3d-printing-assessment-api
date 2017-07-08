@@ -33,6 +33,7 @@ public class User {
     private String email;
     private String password;
     private int enabled;
+    private String zipCode;
 
     public Long getId() {
         return id;
@@ -96,5 +97,13 @@ public class User {
 
     public void setEnabled(int enabled) {
         this.enabled = enabled;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 }
