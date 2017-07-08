@@ -1,6 +1,9 @@
 package com.github.danielbutts.partsanalyzer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by danielbutts on 7/8/17.
@@ -19,6 +22,14 @@ public class Material {
     private Float density;
     private Float volumeBuildSpeed;
     private Float unitCost;
+
+    @ManyToMany
+    @JoinTable(name="printers_materials",
+            joinColumns = @JoinColumn(name = "material_id"),
+            inverseJoinColumns = @JoinColumn(name = "printer_id"))
+    @JsonIgnore
+    private List<Printer> printer;
+
 
     public Long getId() {
         return id;
