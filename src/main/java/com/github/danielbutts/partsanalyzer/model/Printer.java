@@ -1,5 +1,7 @@
 package com.github.danielbutts.partsanalyzer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,6 +25,13 @@ public class Printer {
             joinColumns = @JoinColumn(name = "printer_id"),
             inverseJoinColumns = @JoinColumn(name = "material_id"))
     private List<Material> materials;
+
+    @ManyToMany
+    @JoinTable(name="bureaus_printers",
+            joinColumns = @JoinColumn(name = "printer_id"),
+            inverseJoinColumns = @JoinColumn(name = "bureau_id"))
+    @JsonIgnore
+    private List<Bureau> bureaus;
 
     private Float maxWidth;
     private Float maxHeight;
