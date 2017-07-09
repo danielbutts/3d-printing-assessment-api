@@ -30,8 +30,17 @@ public class BureauController {
     }
 
     @PostMapping("")
-    public Bureau create(@RequestBody Bureau bureau) throws Exception {
-         return this.repository.save(bureau);
+    public Bureau create(@RequestBody Bureau bureau) {
+        return this.repository.save(bureau);
+    }
+
+    @PostMapping("/{id}/printer/{pId}")
+    public Bureau addPrinterToBureau(@PathVariable String id, @PathVariable String pId) {
+        Long bureauId =  Long.parseLong(id);
+        Long printerId =  Long.parseLong(pId);
+
+        Long returnedId = this.repository.addPrinterToBureau(bureauId, printerId);
+        return this.repository.findById(returnedId);
     }
 
     @PatchMapping("")

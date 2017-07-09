@@ -2,6 +2,7 @@ package com.github.danielbutts.partsanalyzer.repository;
 
 import com.github.danielbutts.partsanalyzer.model.Bureau;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,4 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface BureauRepository extends JpaRepository<Bureau, Long> {
 
     public Bureau findById(Long id);
+
+    @Query(value = "insert into bureaus_printers (bureau_id, printer_id) values (?1, ?2) returning bureau_id", nativeQuery = true)
+    public Long addPrinterToBureau(Long bureauId, Long printerId);
 }

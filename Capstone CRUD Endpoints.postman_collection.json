@@ -1,0 +1,307 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Capstone CRUD Endpoints",
+		"_postman_id": "94a7a10f-6918-bfbf-f677-2ad2c086b5b2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST /login",
+			"request": {
+				"url": "localhost:8080/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"timmy\",\n\t\"password\":\"timmy\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /users",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUwMDMyNzQ3Mn0.blAkzLA9JiuZB_FXbKD2v_WfiHBE2abiucMwbL2ngy5vRr-mfcQ6p3-D-uBEAFDDV6jxercgrX5BOdpKwWYX-A",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /users",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUwMDMyNzQ3Mn0.blAkzLA9JiuZB_FXbKD2v_WfiHBE2abiucMwbL2ngy5vRr-mfcQ6p3-D-uBEAFDDV6jxercgrX5BOdpKwWYX-A",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"timmy\",\n\t\"password\":\"timmy\",\n\t\"firstName\":\"Timmy\",\n\t\"lastName\":\"McPhee\",\n\t\"company\":\"Galvanize\",\n\t\"email\":\"timmy@galvanize.com\",\n\t\"enabled\":1,\n\t\"zipCode\":\"98117\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /materials",
+			"request": {
+				"url": "localhost:8080/materials",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"AlSi10Mg\",\n\t\"manufacturer\":\"EOS\",\n\t\"density\":2.67,\n\t\"volumeBuildSpeed\":26640,\n\t\"unitCost\":3.33\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /materials",
+			"request": {
+				"url": "localhost:8080/printers",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 7,\n    \"name\": \"EOSINT M 280\",\n    \"manufacturer\": \"EOS\",\n    \"maxDepth\": 250,\n    \"maxWidth\": 250,\n    \"maxHeight\": 325,\n    \"volumeBuildSpeed\": 13500,\n    \"unitCost\": 10.27,\n    \"process\": \"Direct Metal Laser Sintering (DMLS)\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /printers",
+			"request": {
+				"url": "localhost:8080/printers",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUwMDMyNzQ3Mn0.blAkzLA9JiuZB_FXbKD2v_WfiHBE2abiucMwbL2ngy5vRr-mfcQ6p3-D-uBEAFDDV6jxercgrX5BOdpKwWYX-A",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /printers",
+			"request": {
+				"url": "localhost:8080/printers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"EOSINT M 280\",\n    \"manufacturer\": \"EOS\",\n    \"maxDepth\": 250,\n    \"maxWidth\": 250,\n    \"maxHeight\": 325,\n    \"volumeBuildSpeed\": 13500,\n    \"unitCost\": 10.27,\n    \"process\": \"Direct Metal Laser Sintering (DMLS)\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /printers",
+			"request": {
+				"url": "localhost:8080/printers",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 7,\n    \"name\": \"EOSINT M 280\",\n    \"manufacturer\": \"EOS\",\n    \"maxDepth\": 250,\n    \"maxWidth\": 250,\n    \"maxHeight\": 325,\n    \"volumeBuildSpeed\": 13500,\n    \"unitCost\": 10.27,\n    \"process\": \"Direct Metal Laser Sintering (DMLS)\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /printers/{pId}/materials/{mId}",
+			"request": {
+				"url": "localhost:8080/bureaus/8/printer/7",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /bureaus",
+			"request": {
+				"url": "localhost:8080/bureaus",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUwMDMyNzQ3Mn0.blAkzLA9JiuZB_FXbKD2v_WfiHBE2abiucMwbL2ngy5vRr-mfcQ6p3-D-uBEAFDDV6jxercgrX5BOdpKwWYX-A",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /bureaus",
+			"request": {
+				"url": "localhost:8080/bureaus",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jim's Printing\",\n    \"zipCode\": \"98117\",\n    \"margin\": 1.5,\n    \"minOrder\": 1,\n    \"maxOrder\": 10,\n    \"discountFactor\": 0.95\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /bureaus",
+			"request": {
+				"url": "localhost:8080/bureaus",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 8,\n    \"name\": \"Jim's Printing\",\n    \"zipCode\": \"98117\",\n    \"printers\": [],\n    \"margin\": 2.3,\n    \"discountFactor\": 0.8,\n    \"minOrder\": 1,\n    \"maxOrder\": 10\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /bureaus/{bId}/printer/{pId}",
+			"request": {
+				"url": "localhost:8080/bureaus",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGljbGllbnQiLCJleHAiOjE1MDA0MTQxNzB9.efHmyYSsYg2CkjJqKv_Dv_civYODySDq4NaITfZ2OmuCL0OOLY76vEId3KUmYRL-4hafsYIs8XedVIpD2yrrmw",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jim's Printing\",\n    \"zipCode\": \"98117\",\n    \"margin\": 1.5,\n    \"minOrder\": 1,\n    \"maxOrder\": 10,\n    \"discountFactor\": 0.95\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

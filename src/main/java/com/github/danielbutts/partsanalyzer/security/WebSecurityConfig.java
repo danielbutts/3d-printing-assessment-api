@@ -20,19 +20,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-//    @Autowired
-//    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordencoder());
-//    }
-
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        // Create a default account
-        auth.inMemoryAuthentication()
-                .withUser("apiclient")
-                .password("thisisasecret!")
-                .roles("ADMIN");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordencoder());
     }
+
+//    @Autowired
+//    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//        // Create a default account
+//        auth.inMemoryAuthentication()
+//                .withUser("apiclient")
+//                .password("thisisasecret!")
+//                .roles("ADMIN");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

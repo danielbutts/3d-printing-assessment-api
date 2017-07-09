@@ -34,6 +34,15 @@ public class PrinterController {
          return this.repository.save(printer);
     }
 
+    @PostMapping("/{id}/material/{mId}")
+    public Printer addPrinterToBureau(@PathVariable String id, @PathVariable String mId) {
+        Long printerId =  Long.parseLong(id);
+        Long materialId =  Long.parseLong(mId);
+
+        Long returnedId = this.repository.addMaterialToPrinter(materialId, printerId);
+        return this.repository.findById(returnedId);
+    }
+
     @PatchMapping("")
     public Printer update(@RequestBody Printer printer) {
         Printer existingPrinter = this.repository.findById(printer.getId());

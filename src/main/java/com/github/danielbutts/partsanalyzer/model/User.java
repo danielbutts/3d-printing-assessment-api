@@ -1,6 +1,7 @@
 package com.github.danielbutts.partsanalyzer.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by danielbutts on 7/5/17.
@@ -18,8 +19,10 @@ public class User {
         this.lastName = user.lastName;
         this.username = user.username;
         this.company = user.company;
+        this.password = user.password;
         this.email = user.email;
         this.enabled = user.enabled;
+        this.zipCode = user.zipCode;
     }
 
     @Id
@@ -34,6 +37,12 @@ public class User {
     private String password;
     private int enabled;
     private String zipCode;
+
+    @OneToMany
+    @JoinTable(name="users_parts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "part_id"))
+    private List<Part> parts;
 
     public Long getId() {
         return id;

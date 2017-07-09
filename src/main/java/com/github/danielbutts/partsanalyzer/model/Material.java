@@ -30,6 +30,12 @@ public class Material {
     @JsonIgnore
     private List<Printer> printer;
 
+    @OneToMany
+    @JoinTable(name="parts_materials",
+            joinColumns = @JoinColumn(name = "material_id"),
+            inverseJoinColumns = @JoinColumn(name = "part_id"))
+    @JsonIgnore
+    private List<Part> parts;
 
     public Long getId() {
         return id;
