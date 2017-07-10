@@ -1,6 +1,7 @@
 package com.github.danielbutts.partsanalyzer.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.danielbutts.partsanalyzer.model.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,17 +21,14 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public JWTLoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
-        System.out.println("JWTLoginFilter constructor");
     }
 
     @Override
     public Authentication attemptAuthentication(
             HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException, ServletException {
-        System.out.println("attemptAuthentication");
         AccountCredentials creds = new ObjectMapper()
                 .readValue(req.getInputStream(), AccountCredentials.class);
-        System.out.println("creds " + creds.getUsername() + " " + creds.getPassword());
 
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -46,9 +44,15 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletRequest req,
             HttpServletResponse res, FilterChain chain,
             Authentication auth) throws IOException, ServletException {
-        System.out.println("successfulAuthentication");
 
+        System.out.println(auth.getPrincipal().toString());
         TokenAuthenticationService
                 .addAuthentication(res, auth.getName());
+
+        CustomUserDetails details = (CustomUserDetails)auth.getPrincipal();
+        User user = details.getUser();
+        res.addHeader("userId",user.getId().toString());
+        res.addHeader("username",user.getUsername());
+        res.addHeader("firstName",user.getFirstName());
     }
 }

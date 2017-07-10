@@ -15,6 +15,7 @@ public class User {
     }
 
     public User (User user) {
+        this.id = id;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
         this.username = user.username;
