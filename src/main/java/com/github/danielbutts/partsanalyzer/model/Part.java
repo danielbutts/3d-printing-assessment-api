@@ -31,6 +31,8 @@ public class Part {
             inverseJoinColumns = @JoinColumn(name = "material_id"))
     private Material material;
 
+    @Transient
+    private Long materialId;
     private Float width;
     private Float height;
     private Float depth;
@@ -159,6 +161,22 @@ public class Part {
 
     public Long getPrintTime() {
         return printTime;
+    }
+
+    public Long getMaterialId() {
+        return materialId;
+    }
+
+    public void setMaterialId(long materialId) {
+        this.materialId = materialId;
+    }
+
+    public Long getMaxTurnaround() {
+        return maxTurnaround;
+    }
+
+    public void setMaxTurnaround(Long maxTurnaround) {
+        this.maxTurnaround = maxTurnaround;
     }
 
     public void setPrintTime(Long printTime) {

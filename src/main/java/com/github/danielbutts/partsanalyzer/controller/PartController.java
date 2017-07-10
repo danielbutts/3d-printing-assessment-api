@@ -1,6 +1,7 @@
 package com.github.danielbutts.partsanalyzer.controller;
 
 import com.github.danielbutts.partsanalyzer.model.Part;
+import com.github.danielbutts.partsanalyzer.repository.MaterialRepository;
 import com.github.danielbutts.partsanalyzer.repository.PartRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class PartController {
 
     private final PartRepository repository;
+    private final MaterialRepository materialRepository;
 
-    public PartController(PartRepository repository) {
+    public PartController(PartRepository repository, MaterialRepository materialRepository) {
         this.repository = repository;
+        this.materialRepository = materialRepository;
     }
 
     @GetMapping("")
@@ -45,6 +48,11 @@ public class PartController {
 
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
+        if (part.getMaterialId() != null) {
+            this.repository.removeMaterialFromPart(part.getId());
+            this.repository.addMaterialToPart(part.getId(),part.getMaterialId());
+        }
+
         Part existingPart = this.repository.findById(part.getId());
 
         if (part.getName() != null) {
@@ -77,6 +85,4 @@ public class PartController {
 
         return this.repository.save(existingPart);
     }
-
-
 }
