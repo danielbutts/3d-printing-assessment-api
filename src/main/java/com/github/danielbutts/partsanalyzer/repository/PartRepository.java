@@ -20,4 +20,10 @@ public interface PartRepository extends JpaRepository<Part, Long> {
     @Query(value = "delete from parts_materials where part_id = ?1 returning part_id", nativeQuery = true)
     public Long removeMaterialFromPart(Long partId);
 
+    @Query(value = "insert into users_parts (part_id, user_id) values (?1, ?2) returning part_id", nativeQuery = true)
+    public Long addUserToPart(Long userId, Long partId);
+
+    @Query(value = "delete from users_parts where part_id = ?1 returning part_id", nativeQuery = true)
+    public Long removeUserFromPart(Long partId);
+
 }

@@ -1,6 +1,5 @@
 package com.github.danielbutts.partsanalyzer.controller;
 
-import com.github.danielbutts.partsanalyzer.model.Bureau;
 import com.github.danielbutts.partsanalyzer.model.Material;
 import com.github.danielbutts.partsanalyzer.repository.MaterialRepository;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/materials")
 public class MaterialController {
 

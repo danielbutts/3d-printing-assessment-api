@@ -32,12 +32,13 @@ public class Part {
     private Material material;
 
     @Transient
+    private Long userId;
+    @Transient
     private Long materialId;
     private Float width;
     private Float height;
     private Float depth;
     private Float volume;
-    private Float weight;
     private Float price;
     private Long minOrder;
     private Long annualOrder;
@@ -111,14 +112,6 @@ public class Part {
         this.volume = volume;
     }
 
-    public Float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
-
     public Float getPrice() {
         return price;
     }
@@ -141,14 +134,6 @@ public class Part {
 
     public void setAnnualOrder(Long annualOrder) {
         this.annualOrder = annualOrder;
-    }
-
-    public Long getMinTurnaround() {
-        return maxTurnaround;
-    }
-
-    public void setMinTurnaround(Long minTurnaround) {
-        this.maxTurnaround = minTurnaround;
     }
 
     public String getStlFilename() {
@@ -197,5 +182,9 @@ public class Part {
 
     public void setPostprocessTime(Long postprocessTime) {
         this.postprocessTime = postprocessTime;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 }

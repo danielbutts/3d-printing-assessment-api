@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/parts")
 public class PartController {
 
@@ -37,20 +38,26 @@ public class PartController {
         return this.repository.save(part);
     }
 
-    @PostMapping("/{id}/material/{mId}")
-    public Part addMaterialToPart(@PathVariable String id, @PathVariable String mId) {
-        Long partId =  Long.parseLong(id);
-        Long materialId =  Long.parseLong(mId);
-
-        Long returnedId = this.repository.addMaterialToPart(partId, materialId);
-        return this.repository.findById(returnedId);
-    }
+//    @PostMapping("/batch")
+//    public ArrayList<Part> createMultiple(@RequestBody List<Part> parts) throws Exception {
+//        ArrayList<Part> createdParts = new ArrayList<Part>();
+////        for (Part part : parts) {
+////            createdParts.add(this.repository.save(part));
+////            this.repository.addUserToPart(part.getUserId(),part.getId());
+////        }
+//        return createdParts;
+//    }
 
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
         if (part.getMaterialId() != null) {
             this.repository.removeMaterialFromPart(part.getId());
             this.repository.addMaterialToPart(part.getId(),part.getMaterialId());
+        }
+
+        if (part.getUserId() != null) {
+            this.repository.removeUserFromPart(part.getId());
+            this.repository.addUserToPart(part.getUserId(),part.getId());
         }
 
         Part existingPart = this.repository.findById(part.getId());
@@ -67,9 +74,6 @@ public class PartController {
         if (part.getDepth() != null) {
             existingPart.setDepth(part.getDepth());
         }
-        if (part.getWeight() != null) {
-            existingPart.setWeight(part.getWeight());
-        }
         if (part.getVolume() != null) {
             existingPart.setVolume(part.getVolume());
         }
@@ -78,9 +82,6 @@ public class PartController {
         }
         if (part.getAnnualOrder() != null) {
             existingPart.setAnnualOrder(part.getAnnualOrder());
-        }
-        if (part.getMinTurnaround() != null) {
-            existingPart.setMinTurnaround(part.getMinTurnaround());
         }
 
         return this.repository.save(existingPart);

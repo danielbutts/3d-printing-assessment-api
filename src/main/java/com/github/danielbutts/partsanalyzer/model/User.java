@@ -22,7 +22,7 @@ public class User {
         this.company = user.company;
         this.password = user.password;
         this.email = user.email;
-        this.enabled = user.enabled;
+        this.isAdmin = user.isAdmin;
         this.zipCode = user.zipCode;
     }
 
@@ -32,11 +32,16 @@ public class User {
 
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String username;
+
     private String company;
+
+    @Column(unique = true)
     private String email;
     private String password;
-    private int enabled;
+    private boolean isAdmin;
     private String zipCode;
 
     @OneToMany
@@ -101,19 +106,27 @@ public class User {
         this.password = password;
     }
 
-    public int getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(int enabled) {
-        this.enabled = enabled;
-    }
-
     public String getZipCode() {
         return zipCode;
     }
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public List<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(List<Part> parts) {
+        this.parts = parts;
     }
 }

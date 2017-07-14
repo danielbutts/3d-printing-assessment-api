@@ -6,11 +6,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by danielbutts on 7/5/17.
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/users")
 public class UserController {
 
@@ -35,9 +39,37 @@ public class UserController {
     public User create(@RequestBody User user) throws Exception {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(user.getPassword());
-        System.out.println(hashedPassword);
         user.setPassword(hashedPassword);
         return this.repository.save(user);
+    }
+
+    @PostMapping("/batch")
+    public ArrayList<User> createMultiple(@RequestBody List<User> users) throws Exception {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        ArrayList<User> createdUsers = new ArrayList<User>();
+        for (User user : users) {
+            String hashedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hashedPassword);
+            createdUsers.add(this.repository.save(user));
+        }
+        return createdUsers;
+    }
+
+    @PostMapping("/{id}/parts")
+    public User addPartsToUser(@PathVariable String id, @RequestBody List<Long> partIds) {
+        Long userId =  Long.parseLong(id);
+        for (Long partId : partIds) {
+            this.repository.addPartToUser(partId, userId);
+        }
+        return this.repository.findUserById(userId);
+    }
+
+    @DeleteMapping("/{uid}/parts/{pid}")
+    public User addPartsToUser(@PathVariable String uid, @PathVariable String pid, @RequestBody List<Long> partIds) {
+        Long userId =  Long.parseLong(uid);
+        Long partId =  Long.parseLong(pid);
+        this.repository.removePartFromUser(partId);
+        return this.repository.findUserById(userId);
     }
 
     @PatchMapping("")

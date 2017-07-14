@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/bureaus")
 public class BureauController {
 
