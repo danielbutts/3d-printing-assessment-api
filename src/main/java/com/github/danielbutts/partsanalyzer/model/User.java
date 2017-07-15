@@ -26,7 +26,7 @@ public class User {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -40,7 +40,6 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private boolean isAdmin;
     private String zipCode;
 
     @OneToMany
@@ -111,14 +110,6 @@ public class User {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
     }
 
     public List<Part> getParts() {

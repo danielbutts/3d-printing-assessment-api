@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findUserById(Long id);
+    User findById(Long id);
 
-    User findUserByUsername(String username);
+    User findByUsername(String username);
 
     @Query(value = "insert into users_parts (part_id, user_id) values (?1, ?2) returning part_id", nativeQuery = true)
     public Long addPartToUser(Long partId, Long userId);

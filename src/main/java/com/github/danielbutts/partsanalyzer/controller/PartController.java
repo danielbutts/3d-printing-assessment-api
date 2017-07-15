@@ -1,9 +1,15 @@
 package com.github.danielbutts.partsanalyzer.controller;
 
+import com.github.danielbutts.partsanalyzer.model.Material;
 import com.github.danielbutts.partsanalyzer.model.Part;
+import com.github.danielbutts.partsanalyzer.model.User;
 import com.github.danielbutts.partsanalyzer.repository.MaterialRepository;
 import com.github.danielbutts.partsanalyzer.repository.PartRepository;
+import com.github.danielbutts.partsanalyzer.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by danielbutts on 7/8/17.
@@ -15,11 +21,14 @@ import org.springframework.web.bind.annotation.*;
 public class PartController {
 
     private final PartRepository repository;
+    private final UserRepository userRepository;
     private final MaterialRepository materialRepository;
 
-    public PartController(PartRepository repository, MaterialRepository materialRepository) {
+    public PartController(PartRepository repository, MaterialRepository materialRepository,
+                          UserRepository userRepository) {
         this.repository = repository;
         this.materialRepository = materialRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("")
@@ -35,30 +44,37 @@ public class PartController {
 
     @PostMapping("")
     public Part create(@RequestBody Part part) {
-        return this.repository.save(part);
+        Material material = materialRepository.findById(part.getMaterialId());
+        part.setMaterial(material);
+        Part newPart = this.repository.save(part);
+        User user = userRepository.findById(part.getUserId());
+        if (user.getParts() != null) {
+            List<Part> parts = user.getParts();
+            parts.add(part);
+            user.setParts(parts);
+        } else {
+            List<Part> parts = new ArrayList<Part>();
+            parts.add(part);
+            user.setParts(parts);
+        }
+        userRepository.save(user);
+        return newPart;
     }
 
-//    @PostMapping("/batch")
-//    public ArrayList<Part> createMultiple(@RequestBody List<Part> parts) throws Exception {
-//        ArrayList<Part> createdParts = new ArrayList<Part>();
-////        for (Part part : parts) {
-////            createdParts.add(this.repository.save(part));
-////            this.repository.addUserToPart(part.getUserId(),part.getId());
-////        }
-//        return createdParts;
-//    }
 
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
+        System.out.println("Part update" + part.getMaterialId());
         if (part.getMaterialId() != null) {
+            System.out.println(part.getMaterialId());
             this.repository.removeMaterialFromPart(part.getId());
             this.repository.addMaterialToPart(part.getId(),part.getMaterialId());
         }
-
-        if (part.getUserId() != null) {
-            this.repository.removeUserFromPart(part.getId());
-            this.repository.addUserToPart(part.getUserId(),part.getId());
-        }
+//
+//        if (part.getUserId() != null) {
+//            this.repository.removeUserFromPart(part.getId());
+//            this.repository.addUserToPart(part.getUserId(),part.getId());
+//        }
 
         Part existingPart = this.repository.findById(part.getId());
 
@@ -83,6 +99,9 @@ public class PartController {
         if (part.getAnnualOrder() != null) {
             existingPart.setAnnualOrder(part.getAnnualOrder());
         }
+//        if (part.getMaterial() != null) {
+//            existingPart.setMaterial(part.getMaterial());
+//        }
 
         return this.repository.save(existingPart);
     }

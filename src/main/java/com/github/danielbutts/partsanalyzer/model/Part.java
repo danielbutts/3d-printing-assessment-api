@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Part {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -31,7 +31,6 @@ public class Part {
             inverseJoinColumns = @JoinColumn(name = "material_id"))
     private Material material;
 
-    @Transient
     private Long userId;
     @Transient
     private Long materialId;

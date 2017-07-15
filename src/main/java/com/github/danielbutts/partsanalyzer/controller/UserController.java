@@ -1,6 +1,7 @@
 package com.github.danielbutts.partsanalyzer.controller;
 
 import com.github.danielbutts.partsanalyzer.model.User;
+import com.github.danielbutts.partsanalyzer.repository.PartRepository;
 import com.github.danielbutts.partsanalyzer.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,9 +20,11 @@ import java.util.List;
 public class UserController {
 
     private final UserRepository repository;
+    private final PartRepository partRepository;
 
-    public UserController(UserRepository repository) {
+    public UserController(UserRepository repository, PartRepository partRepository) {
         this.repository = repository;
+        this.partRepository = partRepository;
     }
 
     @GetMapping("")
@@ -32,7 +35,7 @@ public class UserController {
     @GetMapping("/{id}")
     public User getUserById(@PathVariable String id) {
         Long userId =  Long.parseLong(id);
-        return this.repository.findUserById(userId);
+        return this.repository.findById(userId);
     }
 
     @PostMapping("")
@@ -61,7 +64,7 @@ public class UserController {
         for (Long partId : partIds) {
             this.repository.addPartToUser(partId, userId);
         }
-        return this.repository.findUserById(userId);
+        return this.repository.findById(userId);
     }
 
     @DeleteMapping("/{uid}/parts/{pid}")
@@ -69,12 +72,12 @@ public class UserController {
         Long userId =  Long.parseLong(uid);
         Long partId =  Long.parseLong(pid);
         this.repository.removePartFromUser(partId);
-        return this.repository.findUserById(userId);
+        return this.repository.findById(userId);
     }
 
     @PatchMapping("")
     public User update(@RequestBody User user) {
-        User existingUser = this.repository.findUserById(user.getId());
+        User existingUser = this.repository.findById(user.getId());
 
         if (user.getCompany() != null) {
             existingUser.setCompany(user.getCompany());
@@ -90,6 +93,9 @@ public class UserController {
         }
         if (user.getCompany() != null) {
             existingUser.setCompany(user.getCompany());
+        }
+        if (user.getParts() != null) {
+            existingUser.setParts(user.getParts());
         }
 
         return this.repository.save(existingUser);
