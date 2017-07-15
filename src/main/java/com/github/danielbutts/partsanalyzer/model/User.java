@@ -22,7 +22,6 @@ public class User {
         this.company = user.company;
         this.password = user.password;
         this.email = user.email;
-        this.isAdmin = user.isAdmin;
         this.zipCode = user.zipCode;
     }
 
