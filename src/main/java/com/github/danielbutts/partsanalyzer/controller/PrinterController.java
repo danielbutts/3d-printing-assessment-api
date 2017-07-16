@@ -63,9 +63,6 @@ public class PrinterController {
         if (printer.getMaxDepth() != null) {
             existingPrinter.setMaxDepth(printer.getMaxDepth());
         }
-        if (printer.getUnitCost() != null) {
-            existingPrinter.setUnitCost(printer.getUnitCost());
-        }
         if (printer.getMaterials() != null) {
             existingPrinter.setMaterials(printer.getMaterials());
         }

@@ -33,6 +33,7 @@ public class Part {
 
     private Long userId;
     @Transient
+    @JsonIgnore
     private Long materialId;
     private Float width;
     private Float height;

@@ -24,8 +24,7 @@ public class Bureau {
             inverseJoinColumns = @JoinColumn(name = "printer_id"))
     private List<Printer> printers;
 
-    private Float margin;
-    private Float discountFactor;  // unit price = (unit cost) * (1 + margin) * (n units)^discountFactor
+    private Float costFactor;
     private Long minOrder;
     private Long maxOrder;
 
@@ -61,22 +60,6 @@ public class Bureau {
         this.printers = printers;
     }
 
-    public Float getMargin() {
-        return margin;
-    }
-
-    public void setMargin(Float margin) {
-        this.margin = margin;
-    }
-
-    public Float getDiscountFactor() {
-        return discountFactor;
-    }
-
-    public void setDiscountFactor(Float discountFactor) {
-        this.discountFactor = discountFactor;
-    }
-
     public Long getMinOrder() {
         return minOrder;
     }
@@ -91,5 +74,13 @@ public class Bureau {
 
     public void setMaxOrder(Long maxOrder) {
         this.maxOrder = maxOrder;
+    }
+
+    public Float getCostFactor() {
+        return costFactor;
+    }
+
+    public void setCostFactor(Float costFactor) {
+        this.costFactor = costFactor;
     }
 }

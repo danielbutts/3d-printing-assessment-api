@@ -42,17 +42,14 @@ public class MaterialController {
         if (material.getName() != null) {
             existingMaterial.setName(material.getName());
         }
-        if (material.getManufacturer() != null) {
-            existingMaterial.setManufacturer(material.getManufacturer());
+        if (material.getCategory() != null) {
+            existingMaterial.setCategory(material.getCategory());
         }
         if (material.getDensity() != null) {
             existingMaterial.setDensity(material.getDensity());
         }
-        if (material.getVolumeBuildSpeed() != null) {
-            existingMaterial.setVolumeBuildSpeed(material.getVolumeBuildSpeed());
-        }
-        if (material.getUnitCost() != null) {
-            existingMaterial.setUnitCost(material.getUnitCost());
+        if (material.getType() != null) {
+            existingMaterial.setType(material.getType());
         }
 
         return this.repository.save(existingMaterial);

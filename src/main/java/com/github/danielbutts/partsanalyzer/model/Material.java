@@ -18,10 +18,10 @@ public class Material {
     private Long id;
 
     private String name;
-    private String manufacturer;
+    private String category; // metal, etc.
+    private String type; // stainless steel, aluminum, etc.
     private Float density;
-    private Float volumeBuildSpeed;
-    private Float unitCost;
+    private Float costFactor;
 
     @ManyToMany
     @JoinTable(name="printers_materials",
@@ -53,12 +53,20 @@ public class Material {
         this.name = name;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public String getCategory() {
+        return category;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Float getDensity() {
@@ -69,19 +77,11 @@ public class Material {
         this.density = density;
     }
 
-    public Float getVolumeBuildSpeed() {
-        return volumeBuildSpeed;
+    public Float getCostFactor() {
+        return costFactor;
     }
 
-    public void setVolumeBuildSpeed(Float volumeBuildSpeed) {
-        this.volumeBuildSpeed = volumeBuildSpeed;
-    }
-
-    public Float getUnitCost() {
-        return unitCost;
-    }
-
-    public void setUnitCost(Float unitCost) {
-        this.unitCost = unitCost;
+    public void setCostFactor(Float costFactor) {
+        this.costFactor = costFactor;
     }
 }

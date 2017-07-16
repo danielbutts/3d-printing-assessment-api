@@ -65,17 +65,10 @@ public class PartController {
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
         System.out.println("Part update" + part.getMaterialId());
-        if (part.getMaterialId() != null) {
-            System.out.println(part.getMaterialId());
+        if (part.getMaterial() != null) {
             this.repository.removeMaterialFromPart(part.getId());
-            this.repository.addMaterialToPart(part.getId(),part.getMaterialId());
+            this.repository.addMaterialToPart(part.getId(),part.getMaterial().getId());
         }
-//
-//        if (part.getUserId() != null) {
-//            this.repository.removeUserFromPart(part.getId());
-//            this.repository.addUserToPart(part.getUserId(),part.getId());
-//        }
-
         Part existingPart = this.repository.findById(part.getId());
 
         if (part.getName() != null) {
@@ -99,9 +92,9 @@ public class PartController {
         if (part.getAnnualOrder() != null) {
             existingPart.setAnnualOrder(part.getAnnualOrder());
         }
-//        if (part.getMaterial() != null) {
-//            existingPart.setMaterial(part.getMaterial());
-//        }
+        if (part.getMaxTurnaround() != null) {
+            existingPart.setMaxTurnaround(part.getMaxTurnaround());
+        }
 
         return this.repository.save(existingPart);
     }

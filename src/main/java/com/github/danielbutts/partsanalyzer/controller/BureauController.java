@@ -54,8 +54,8 @@ public class BureauController {
         if (bureau.getZipCode() != null) {
             existingBureau.setZipCode(bureau.getZipCode());
         }
-        if (bureau.getMargin() != null) {
-            existingBureau.setMargin(bureau.getMargin());
+        if (bureau.getCostFactor() != null) {
+            existingBureau.setCostFactor(bureau.getCostFactor());
         }
         if (bureau.getMaxOrder() != null) {
             existingBureau.setMaxOrder(bureau.getMaxOrder());
@@ -63,8 +63,8 @@ public class BureauController {
         if (bureau.getMinOrder() != null) {
             existingBureau.setMinOrder(bureau.getMinOrder());
         }
-        if (bureau.getDiscountFactor() != null) {
-            existingBureau.setDiscountFactor(bureau.getDiscountFactor());
+        if (bureau.getZipCode() != null) {
+            existingBureau.setZipCode(bureau.getZipCode());
         }
 
         return this.repository.save(existingBureau);

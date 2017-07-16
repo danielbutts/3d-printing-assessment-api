@@ -38,7 +38,7 @@ public class Printer {
     private Float maxDepth;
     private String process;
 
-    private Float unitCost;
+    private Float costFactor;
 
     public Long getId() {
         return id;
@@ -96,19 +96,19 @@ public class Printer {
         this.maxDepth = maxDepth;
     }
 
-    public Float getUnitCost() {
-        return unitCost;
-    }
-
-    public void setUnitCost(Float unitCost) {
-        this.unitCost = unitCost;
-    }
-
     public String getProcess() {
         return process;
     }
 
     public void setProcess(String process) {
         this.process = process;
+    }
+
+    public Float getCostFactor() {
+        return costFactor;
+    }
+
+    public void setCostFactor(Float costFactor) {
+        this.costFactor = costFactor;
     }
 }
