@@ -64,11 +64,12 @@ public class PartController {
 
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
-        System.out.println("Part update" + part.getMaterialId());
-        if (part.getMaterial() != null) {
+        System.out.println("Part update " + part.getMaterialId());
+        if (part.getMaterialId() != null) {
             this.repository.removeMaterialFromPart(part.getId());
-            this.repository.addMaterialToPart(part.getId(),part.getMaterial().getId());
+            this.repository.addMaterialToPart(part.getId(),part.getMaterialId());
         }
+
         Part existingPart = this.repository.findById(part.getId());
 
         if (part.getName() != null) {
@@ -89,12 +90,15 @@ public class PartController {
         if (part.getMinOrder() != null) {
             existingPart.setMinOrder(part.getMinOrder());
         }
-        if (part.getAnnualOrder() != null) {
-            existingPart.setAnnualOrder(part.getAnnualOrder());
-        }
         if (part.getMaxTurnaround() != null) {
             existingPart.setMaxTurnaround(part.getMaxTurnaround());
         }
+        if (part.getPrintProcess() != null) {
+            existingPart.setPrintProcess(part.getPrintProcess());
+        }
+        existingPart.setMaterialMultiplier(null);
+        existingPart.setProcessMultiplier(null);
+        existingPart.setBasePriceMultiplier(null);
 
         return this.repository.save(existingPart);
     }

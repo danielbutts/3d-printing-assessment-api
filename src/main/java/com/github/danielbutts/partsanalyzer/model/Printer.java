@@ -111,4 +111,15 @@ public class Printer {
     public void setCostFactor(Float costFactor) {
         this.costFactor = costFactor;
     }
+
+//    public enum PrintProcess {
+//        BINDER_JETTING("Binder Jetting"),
+//        DMLS("Direct Metal Laser Sintering");
+//
+//        private String name;
+//
+//        PrintProcess(String name) {
+//            this.name = name;
+//        }
+//    }
 }
