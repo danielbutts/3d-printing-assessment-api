@@ -29,6 +29,7 @@ public class Bureau {
     private Float costFactor;
     private Long minOrder;
     private Long maxOrder;
+    private Long turnaround;
 
     public Long getId() {
         return id;
@@ -92,5 +93,13 @@ public class Bureau {
 
     public void setPrinterIds(List<Long> printerIds) {
         this.printerIds = printerIds;
+    }
+
+    public Long getTurnaround() {
+        return turnaround;
+    }
+
+    public void setTurnaround(Long turnaround) {
+        this.turnaround = turnaround;
     }
 }
