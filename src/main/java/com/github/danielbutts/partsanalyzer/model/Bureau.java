@@ -24,6 +24,8 @@ public class Bureau {
             inverseJoinColumns = @JoinColumn(name = "printer_id"))
     private List<Printer> printers;
 
+    @Transient
+    private List<Long> printerIds;
     private Float costFactor;
     private Long minOrder;
     private Long maxOrder;
@@ -82,5 +84,13 @@ public class Bureau {
 
     public void setCostFactor(Float costFactor) {
         this.costFactor = costFactor;
+    }
+
+    public List<Long> getPrinterIds() {
+        return printerIds;
+    }
+
+    public void setPrinterIds(List<Long> printerIds) {
+        this.printerIds = printerIds;
     }
 }

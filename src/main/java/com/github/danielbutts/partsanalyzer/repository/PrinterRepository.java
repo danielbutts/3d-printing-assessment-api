@@ -16,4 +16,5 @@ public interface PrinterRepository extends JpaRepository<Printer, Long> {
 
     @Query(value = "insert into printers_materials (material_id, printer_id) values (?1, ?2) returning printer_id", nativeQuery = true)
     public Long addMaterialToPrinter(Long materialId, Long printerId);
+
 }
