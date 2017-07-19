@@ -19,4 +19,5 @@ public interface BureauRepository extends JpaRepository<Bureau, Long> {
 
     @Query(value = "delete from bureaus_printers where bureau_id = ?1 and printer_id = ?2 returning bureau_id", nativeQuery = true)
     public Long removePrinterFromBureau(Long bureauId, Long printerId);
+
 }

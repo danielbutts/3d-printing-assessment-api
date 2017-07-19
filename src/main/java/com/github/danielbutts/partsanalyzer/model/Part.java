@@ -3,6 +3,7 @@ package com.github.danielbutts.partsanalyzer.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by danielbutts on 7/8/17.
@@ -39,10 +40,13 @@ public class Part {
     private Float depth;
     private Float volume;
     private Float price;
-    private Long minOrder;
+    private Long orderSize;
     private Long maxTurnaround;
     private String stlFilename;
-    private String printProcess;
+
+    @NotNull
+    @Column(name="is_strength_critical", columnDefinition="boolean default false")
+    private Boolean isStrengthCritical;
     private Double basePriceMultiplier;
     private Double materialMultiplier;
     private Double processMultiplier;
@@ -143,12 +147,12 @@ public class Part {
         this.price = price;
     }
 
-    public Long getMinOrder() {
-        return minOrder;
+    public Long getOrderSize() {
+        return orderSize;
     }
 
-    public void setMinOrder(Long minOrder) {
-        this.minOrder = minOrder;
+    public void setOrderSize(Long orderSize) {
+        this.orderSize = orderSize;
     }
 
     public String getStlFilename() {
@@ -179,15 +183,15 @@ public class Part {
         return userId;
     }
 
-    public String getPrintProcess() {
-        return printProcess;
+    public Boolean getStrengthCritical() {
+        return isStrengthCritical;
     }
 
-    public void setPrintProcess(String printProcess) {
-        this.printProcess = printProcess;
+    public void setStrengthCritical(Boolean strengthCritical) {
+        isStrengthCritical = strengthCritical;
     }
 
-//    public Double getPrintCostEstimate() {
+    //    public Double getPrintCostEstimate() {
 //        Double costEstimate = basePriceMultiplier();
 //        System.out.println("costEstimate = "+costEstimate);
 //        if (costEstimate != null) {
@@ -256,21 +260,14 @@ public class Part {
         // multiplier based on single data point (~$450 for Binder Jetting and $2500 for DMLS)
         Double multiplier = null;
 
-        if (this.printProcess == null || this.volume == null) {
+        if (this.volume == null) {
             return null;
         }
-        switch (this.printProcess) {
-            case "Binder Jetting":
-                multiplier = 1d;
-                break;
-            case "Direct Metal Laser Sintering (DMLS)":
-                multiplier = 5.56d;
-                break;
+        if (this.isStrengthCritical != null && this.isStrengthCritical) {
+            multiplier = 5.56d;
+        } else {
+            multiplier = 1d;
         }
-        if (multiplier == null) {
-            return null;
-        }
-        System.out.println("Process Multiplier: " + multiplier);
         return multiplier;
     }
 }

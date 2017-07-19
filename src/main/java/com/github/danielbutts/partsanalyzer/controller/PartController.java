@@ -61,7 +61,6 @@ public class PartController {
         return newPart;
     }
 
-
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
         System.out.println("Part update " + part.getMaterialId());
@@ -87,15 +86,16 @@ public class PartController {
         if (part.getVolume() != null) {
             existingPart.setVolume(part.getVolume());
         }
-        if (part.getMinOrder() != null) {
-            existingPart.setMinOrder(part.getMinOrder());
+        if (part.getOrderSize() != null) {
+            existingPart.setOrderSize(part.getOrderSize());
         }
         if (part.getMaxTurnaround() != null) {
             existingPart.setMaxTurnaround(part.getMaxTurnaround());
         }
-        if (part.getPrintProcess() != null) {
-            existingPart.setPrintProcess(part.getPrintProcess());
+        if (part.getStrengthCritical() != null) {
+            existingPart.setStrengthCritical(part.getStrengthCritical());
         }
+
         existingPart.setMaterialMultiplier(null);
         existingPart.setProcessMultiplier(null);
         existingPart.setBasePriceMultiplier(null);
