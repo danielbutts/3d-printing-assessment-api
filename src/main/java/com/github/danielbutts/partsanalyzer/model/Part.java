@@ -51,6 +51,38 @@ public class Part {
     private Double materialMultiplier;
     private Double processMultiplier;
 
+    @Column(name="is_complete", columnDefinition="boolean default false")
+    private Boolean isComplete;
+
+    public Boolean getComplete() {
+        boolean partComplete = true;
+        if (this.width == null) {
+            partComplete = false;
+        }
+        if (this.depth == null) {
+            partComplete = false;
+        }
+        if (this.height == null) {
+            partComplete = false;
+        }
+        if (this.volume == null) {
+            partComplete = false;
+        }
+        if (this.material == null) {
+            partComplete = false;
+        }
+        if (this.price == null) {
+            partComplete = false;
+        }
+        if (this.orderSize == null) {
+            partComplete = false;
+        }
+        if (this.maxTurnaround == null) {
+           partComplete = false;
+        }
+        return partComplete;
+    }
+
     public Double getBasePriceMultiplier() {
         return calculateBasePriceMultiplier();
     }
