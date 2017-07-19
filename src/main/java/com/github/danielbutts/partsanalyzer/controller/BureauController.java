@@ -62,7 +62,14 @@ public class BureauController {
                     continue;
                 } else {
                     for (Material material : materials) {
-                        if (material.getType().equals(part.getMaterial().getType())) { isValidPrinter = true; }
+//                        System.out.println("part material: "+part.getMaterial().getType());
+//                        System.out.println("part material: "+material.getType());
+                        if (material.getType().equals(part.getMaterial().getType())) {
+                            isValidPrinter = true;
+                            List<Material> partMaterials = new ArrayList<Material>();
+                            partMaterials.add(material);
+                            printer.setMaterials(partMaterials);
+                        }
                     }
                     if (!isValidPrinter) {
                         continue;
@@ -148,7 +155,6 @@ public class BureauController {
             }
             existingBureau.setPrinters(printers);
         }
-
 
         return this.repository.save(existingBureau);
     }

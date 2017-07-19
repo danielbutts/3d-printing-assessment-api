@@ -37,8 +37,7 @@ public class Printer {
     private Float maxHeight;
     private Float maxDepth;
     private String process;
-
-    private Float costFactor;
+    private Double processMultiplier;
 
     public Long getId() {
         return id;
@@ -104,22 +103,27 @@ public class Printer {
         this.process = process;
     }
 
-    public Float getCostFactor() {
-        return costFactor;
+    public Double getProcessMultiplier() {
+        return calculateProcessMultiplier();
     }
 
-    public void setCostFactor(Float costFactor) {
-        this.costFactor = costFactor;
+    public void setProcessMultiplier(Double processMultiplier) {
+        this.processMultiplier = calculateProcessMultiplier();
     }
 
-//    public enum PrintProcess {
-//        BINDER_JETTING("Binder Jetting"),
-//        DMLS("Direct Metal Laser Sintering");
-//
-//        private String name;
-//
-//        PrintProcess(String name) {
-//            this.name = name;
-//        }
-//    }
+    private Double calculateProcessMultiplier() {
+        // multiplier based on single data point (~$450 for Binder Jetting and $2500 for DMLS)
+        Double multiplier = null;
+
+        if (this.process == null) {
+            return null;
+        }
+        if (this.process.equals("DMLS")) {
+            multiplier = 5.56d;
+        } else {
+            multiplier = 1d;
+        }
+        return multiplier;
+    }
+
 }

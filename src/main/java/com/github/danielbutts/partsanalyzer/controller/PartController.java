@@ -97,7 +97,6 @@ public class PartController {
         }
 
         existingPart.setMaterialMultiplier(null);
-        existingPart.setProcessMultiplier(null);
         existingPart.setBasePriceMultiplier(null);
 
         return this.repository.save(existingPart);

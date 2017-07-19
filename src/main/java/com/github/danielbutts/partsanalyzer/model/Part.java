@@ -49,7 +49,7 @@ public class Part {
     private Boolean isStrengthCritical;
     private Double basePriceMultiplier;
     private Double materialMultiplier;
-    private Double processMultiplier;
+    private Float weight;
 
     @Column(name="is_complete", columnDefinition="boolean default false")
     private Boolean isComplete;
@@ -99,12 +99,12 @@ public class Part {
         this.materialMultiplier = calculateMaterialMultiplier();
     }
 
-    public Double getProcessMultiplier() {
-        return calculateProcessMultiplier();
+    public Float getWeight() {
+        return calculateWeight();
     }
 
-    public void setProcessMultiplier(Double processMultiplier) {
-        this.processMultiplier = calculateProcessMultiplier();
+    public void setWeight(Float weight) {
+        this.weight = calculateWeight();
     }
 
     public Long getId() {
@@ -223,26 +223,6 @@ public class Part {
         isStrengthCritical = strengthCritical;
     }
 
-    //    public Double getPrintCostEstimate() {
-//        Double costEstimate = basePriceMultiplier();
-//        System.out.println("costEstimate = "+costEstimate);
-//        if (costEstimate != null) {
-//            costEstimate = processMultiplier(costEstimate);
-//        }
-//        System.out.println("costEstimate = "+costEstimate);
-//        if (costEstimate != null) {
-//            costEstimate = materialMultiplier(costEstimate);
-//        }
-//        System.out.println("costEstimate = "+costEstimate);
-//
-//        if (this.volume == null || costEstimate == null) {
-//            System.out.println("Cost Estimate Null");
-//            return null;
-//        }
-//        System.out.println("Cost Estimate: "+costEstimate);
-//        return costEstimate;
-//    }
-
     private Double calculateBasePriceMultiplier() {
         // y = 9.029815 + 18414310.97/(1 + (x/1.107513e-17)^0.3233867)
 
@@ -253,6 +233,13 @@ public class Part {
         }
         System.out.println("Base Price Multiplier: " + multiplier);
         return multiplier;
+    }
+
+    private Float calculateWeight() {
+        if (this.volume == null || this.material == null || this.material.getDensity() == null) {
+            return null;
+        }
+        return this.volume * this.material.getDensity();
     }
 
     private Double calculateMaterialMultiplier() {
@@ -285,21 +272,6 @@ public class Part {
             return null;
         }
         System.out.println("Material Multiplier: " + multiplier);
-        return multiplier;
-    }
-
-    private Double calculateProcessMultiplier() {
-        // multiplier based on single data point (~$450 for Binder Jetting and $2500 for DMLS)
-        Double multiplier = null;
-
-        if (this.volume == null) {
-            return null;
-        }
-        if (this.isStrengthCritical != null && this.isStrengthCritical) {
-            multiplier = 5.56d;
-        } else {
-            multiplier = 1d;
-        }
         return multiplier;
     }
 }

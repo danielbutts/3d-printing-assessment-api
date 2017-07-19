@@ -69,6 +69,8 @@ public class PrinterController {
         if (printer.getProcess() != null) {
             existingPrinter.setProcess(printer.getProcess());
         }
+        existingPrinter.setProcessMultiplier(null);
+
         return this.repository.save(existingPrinter);
     }
 
