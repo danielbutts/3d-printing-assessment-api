@@ -96,6 +96,10 @@ public class PartController {
             existingPart.setStrengthCritical(part.getStrengthCritical());
         }
 
+        if (part.getPrice() != null) {
+            existingPart.setPrice(part.getPrice());
+        }
+
         existingPart.setMaterialMultiplier(null);
         existingPart.setBasePriceMultiplier(null);
 
