@@ -47,8 +47,6 @@ public class Part {
     @NotNull
     @Column(name="is_strength_critical", columnDefinition="boolean default false")
     private Boolean isStrengthCritical;
-    private Double basePriceMultiplier;
-    private Double materialMultiplier;
     private Float weight;
 
     @Column(name="is_complete", columnDefinition="boolean default false")
@@ -83,28 +81,11 @@ public class Part {
         return partComplete;
     }
 
-    public Double getBasePriceMultiplier() {
-        return calculateBasePriceMultiplier();
-    }
-
-    public void setBasePriceMultiplier(Double basePriceMultiplier) {
-        this.basePriceMultiplier = calculateBasePriceMultiplier();
-    }
-
-    public Double getMaterialMultiplier() {
-        return calculateMaterialMultiplier();
-    }
-
-    public void setMaterialMultiplier(Double materialMultiplier) {
-        this.materialMultiplier = calculateMaterialMultiplier();
-    }
-
     public Float getWeight() {
-        return calculateWeight();
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = calculateWeight();
+        if (this.volume == null || this.material == null || this.material.getDensity() == null) {
+            return null;
+        }
+        return this.volume * this.material.getDensity();
     }
 
     public Long getId() {
@@ -221,57 +202,5 @@ public class Part {
 
     public void setStrengthCritical(Boolean strengthCritical) {
         isStrengthCritical = strengthCritical;
-    }
-
-    private Double calculateBasePriceMultiplier() {
-        // y = 9.029815 + 18414310.97/(1 + (x/1.107513e-17)^0.3233867)
-
-        Double multiplier = null;
-        if (this.volume != null) {
-            multiplier = 9.029815 + 18414310.97/
-                    (1 + java.lang.Math.pow(this.volume/1.107513e-17,0.3233867));
-        }
-        System.out.println("Base Price Multiplier: " + multiplier);
-        return multiplier;
-    }
-
-    private Float calculateWeight() {
-        if (this.volume == null || this.material == null || this.material.getDensity() == null) {
-            return null;
-        }
-        return this.volume * this.material.getDensity();
-    }
-
-    private Double calculateMaterialMultiplier() {
-        // fitting equation from https://mycurvefit.com/
-        // y = 0.424533 + (0.8587039 - 0.424533)/(1 + (x/11.96723)^3.993398)
-        Double multiplier = null;
-
-        if (this.material == null || this.volume == null) {
-            return null;
-        }
-        switch (this.material.getType()) {
-            case "Stainless Steel": multiplier = 1d;
-                break;
-            case "Aluminum":
-                multiplier = 0.424533 + (0.8587039 - 0.424533)/
-                        (1 + java.lang.Math.pow(this.volume/11.96723,3.993398));
-                break;
-            case "Cobalt":
-                multiplier = 1.15;
-                break;
-            case "Nickel":
-                multiplier = 0.85;
-                break;
-            case "Titanium":
-                multiplier = 1.24;
-                break;
-        }
-
-        if (multiplier == null) {
-            return null;
-        }
-        System.out.println("Material Multiplier: " + multiplier);
-        return multiplier;
     }
 }

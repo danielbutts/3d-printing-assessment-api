@@ -65,7 +65,6 @@ public class PartController {
 
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
-        System.out.println("Part update " + part.getMaterialId());
         if (part.getMaterialId() != null) {
             this.repository.removeMaterialFromPart(part.getId());
             this.repository.addMaterialToPart(part.getId(),part.getMaterialId());
@@ -102,131 +101,53 @@ public class PartController {
             existingPart.setPrice(part.getPrice());
         }
 
-        existingPart.setMaterialMultiplier(null);
-        existingPart.setBasePriceMultiplier(null);
-
         return this.repository.save(existingPart);
     }
 
-    @GetMapping("/{id}/quantity/{qty}")
-    public List<PrintOption> getCheapestPrintOptionsForPartId(@PathVariable String id, @PathVariable String qty) {
-        Long partId =  Long.parseLong(id);
-        Long quantity =  Long.parseLong(qty);
+    @GetMapping("/{id}/cost")
+    public List<PrintOption> getCheapestPrintOptionsForPartId(@PathVariable String id) {
+        Long partId = Long.parseLong(id);
         Part part = repository.findById(partId);
         if (!part.getComplete()) {
             return null;
         }
+        Long quantity = part.getOrderSize() * 2;
 
-        List<PrintOption> validPrintOptions = getValidPrintOptions(part);
-        List<PrintOption> cheapestPrintOptions = getValidPrintOptions(part);
+        List<PrintOption> selectedPrintOptions = new ArrayList<PrintOption>();
 
+        List<PrintOption> options = new ArrayList<PrintOption>();
 
-        Long remainingQty = part.getOrderSize();
-
-        while (remainingQty > 0) {
-            PrintOption cheapestOption = getCheapestOption(remainingQty, validPrintOptions);
-            if (cheapestOption != null) {
-                cheapestPrintOptions.add(cheapestOption);
-            } else {
-                break;
-            }
-            remainingQty -= Math.max(cheapestOption.getMaxQuantity(), remainingQty);
-        }
-        return cheapestPrintOptions;
-    }
-
-    public PrintOption getCheapestOption(Long remainingQty, List<PrintOption> validPrintOptions) {
-        Double minUnitCost = null;
-        PrintOption cheapestOption = null;
-
-        for (PrintOption option : validPrintOptions) {
-            Long optionQuantity = Math.min(option.getMaxQuantity(), remainingQty);
-            Double discountedPrice = option.getPrice() * getQuantityDiscount(optionQuantity);
-            if (minUnitCost == null || discountedPrice < minUnitCost) {
-                minUnitCost = discountedPrice;
-                option.setPrintQuantity(optionQuantity);
-                cheapestOption = option;
-            }
-        }
-
-        Iterator<PrintOption> iter = validPrintOptions.iterator();
-        while(iter.hasNext()){
-            if(iter.next().getId() == cheapestOption.getId()){
-                iter.remove();
-            }
-        }
-
-       return cheapestOption;
-    }
-
-    public Double getQuantityDiscount(Long quantity) {
-        Double discount = 52.53779 + 11625337.46/(1 + Math.pow(quantity/0.0001151726,1.368253));
-        System.out.println("discount " + discount);
-        return discount;
-    }
-
-    private List<PrintOption> getValidPrintOptions(Part part) {
         List<Bureau> bureaus = bureauRepository.findAll();
-        List<PrintOption> validPrintOptions = new ArrayList<PrintOption>();
-
-        Integer optionId = 1;
-
         for (Bureau bureau : bureaus) {
-            for (Printer printer : bureau.getPrinters()) {
-                boolean isValidPrinter = false;
-                List<Material> materials = printer.getMaterials();
-                if (materials == null) {
-                    continue;
-                } else {
-                    for (Material material : materials) {
-//                        System.out.println("part material: "+part.getMaterial().getType());
-//                        System.out.println("part material: "+material.getType());
-                        if (material.getType().equals(part.getMaterial().getType())) {
-                            isValidPrinter = true;
-                            List<Material> partMaterials = new ArrayList<Material>();
-                            partMaterials.add(material);
-                            printer.setMaterials(partMaterials);
-                        }
-                    }
-                    if (!isValidPrinter) {
-                        continue;
-                    }
-                }
-
-                if (part.getStrengthCritical() != null &&
-                        part.getStrengthCritical() && !printer.getProcess().equals("DMLS")) {
-                    continue;
-                }
-                if (part.getWidth() > printer.getMaxWidth()) {
-                    continue;
-                }
-                if (part.getHeight() > printer.getMaxHeight()) {
-                    continue;
-                }
-                if (part.getDepth() > printer.getMaxDepth()) {
-                    continue;
-                }
-
-                PrintOption option = new PrintOption(printer);
-
-                option.setMaxQuantity(bureau.getMaxOrder());
-                option.setZipCode(bureau.getZipCode());
-                option.setMinQuantity(bureau.getMinOrder());
-                option.setCostFactor(bureau.getCostFactor());
-                option.setTurnaround(bureau.getTurnaround());
-                option.setId(optionId);
-                Double price = part.getVolume() *
-                        part.getBasePriceMultiplier() * part.getMaterialMultiplier() *
-                        option.getPrinter().getProcessMultiplier() * option.getCostFactor();
-                option.setPrice(price);
-
-
-                validPrintOptions.add(option);
-                optionId++;
-            }
+            options.addAll(PrintOption.getPrintOptions(bureau, part));
         }
 
-        return validPrintOptions;
-    }
+        List<PrintOption> validPrintOptions = PrintOption.getValidPrintOptions(options);
 
+        Long remainingQty = quantity;
+
+        while (remainingQty > 0 && validPrintOptions.size() > 0) {
+//            System.out.println(remainingQty);
+            PrintOption cheapestOption = PrintOption.getCheapestOption(validPrintOptions, remainingQty);
+            if (cheapestOption != null) { selectedPrintOptions.add(cheapestOption); }
+//            System.out.println(
+//                    "Bureau Name (" + cheapestOption.getBureau().getName() +
+//                            ") Printer Name (" + cheapestOption.getPrinter().getName() +
+//                            ") Max Qty (" + cheapestOption.getBureau().getMaxOrder() +
+//                            ") Print Qty (" + cheapestOption.getPrintQuantity() + ")" +
+//                            ") Price (" + cheapestOption.calculatePrice(cheapestOption.getPrintQuantity()) + ")"
+//            );
+
+            Iterator<PrintOption> iter = validPrintOptions.listIterator();
+            while(iter.hasNext()){
+                if(iter.next().equals(cheapestOption)){
+//                    System.out.println("THEY ARE EQUAL");
+                    iter.remove();
+                }
+            }
+
+            remainingQty -= cheapestOption.getPrintQuantity();
+        }
+        return selectedPrintOptions;
+    }
 }

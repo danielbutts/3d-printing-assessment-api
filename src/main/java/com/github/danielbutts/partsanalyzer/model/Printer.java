@@ -37,7 +37,6 @@ public class Printer {
     private Float maxHeight;
     private Float maxDepth;
     private String process;
-    private Double processMultiplier;
 
     public Long getId() {
         return id;
@@ -101,29 +100,6 @@ public class Printer {
 
     public void setProcess(String process) {
         this.process = process;
-    }
-
-    public Double getProcessMultiplier() {
-        return calculateProcessMultiplier();
-    }
-
-    public void setProcessMultiplier(Double processMultiplier) {
-        this.processMultiplier = calculateProcessMultiplier();
-    }
-
-    private Double calculateProcessMultiplier() {
-        // multiplier based on single data point (~$450 for Binder Jetting and $2500 for DMLS)
-        Double multiplier = null;
-
-        if (this.process == null) {
-            return null;
-        }
-        if (this.process.equals("DMLS")) {
-            multiplier = 5.56d;
-        } else {
-            multiplier = 1d;
-        }
-        return multiplier;
     }
 
 }
