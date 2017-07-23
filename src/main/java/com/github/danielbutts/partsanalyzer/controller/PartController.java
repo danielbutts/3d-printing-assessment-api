@@ -127,21 +127,12 @@ public class PartController {
         Long remainingQty = quantity;
 
         while (remainingQty > 0 && validPrintOptions.size() > 0) {
-//            System.out.println(remainingQty);
             PrintOption cheapestOption = PrintOption.getCheapestOption(validPrintOptions, remainingQty);
             if (cheapestOption != null) { selectedPrintOptions.add(cheapestOption); }
-//            System.out.println(
-//                    "Bureau Name (" + cheapestOption.getBureau().getName() +
-//                            ") Printer Name (" + cheapestOption.getPrinter().getName() +
-//                            ") Max Qty (" + cheapestOption.getBureau().getMaxOrder() +
-//                            ") Print Qty (" + cheapestOption.getPrintQuantity() + ")" +
-//                            ") Price (" + cheapestOption.calculatePrice(cheapestOption.getPrintQuantity()) + ")"
-//            );
 
             Iterator<PrintOption> iter = validPrintOptions.listIterator();
             while(iter.hasNext()){
                 if(iter.next().equals(cheapestOption)){
-//                    System.out.println("THEY ARE EQUAL");
                     iter.remove();
                 }
             }

@@ -14,10 +14,11 @@ public class PrintOption {
     private Bureau bureau;
     private Printer printer;
     private Part part;
+    private List<Double> prices;
 
     // calculated
     private Long printQuantity;
-    private Double unitPrice;
+//    private Double unitPrice;
 
     public Long getPrintQuantity() {
         return printQuantity;
@@ -39,13 +40,13 @@ public class PrintOption {
         return part;
     }
 
-    public Double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
+//    public Double getUnitPrice() {
+//        return unitPrice;
+//    }
+//
+//    public void setUnitPrice(Double unitPrice) {
+//        this.unitPrice = unitPrice;
+//    }
 
     public PrintOption(Bureau bureau, Printer printer, Part part) throws InvalidArgumentException {
         if (bureau == null) {
@@ -207,17 +208,22 @@ public class PrintOption {
         for (PrintOption option : options) {
             Long optionQuantity = Math.min(option.bureau.getMaxOrder(), quantity);
             Double unitPrice = option.calculatePrice(optionQuantity);
-//            System.out.println("unitPrice "+ unitPrice);
             if (minUnitCost == null || unitPrice < minUnitCost) {
                 minUnitCost = unitPrice;
-//                System.out.println("minUnitCost "+ minUnitCost);
                 cheapestOption = option;
                 cheapestOption.setPrintQuantity(optionQuantity);
-                cheapestOption.setUnitPrice(unitPrice);
+//                cheapestOption.setUnitPrice(unitPrice);
+//                cheapestOption.prices = option.buildPrices(cheapestOption);
             }
         }
         return cheapestOption;
     }
 
-
+    public List<Double> getPrices() {
+        List<Double> prices = new ArrayList<Double>();
+        for (Long i = 1l; i <= printQuantity; i++) {
+            prices.add(calculatePrice(i));
+        }
+        return prices;
+    }
 }
