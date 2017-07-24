@@ -48,21 +48,21 @@ public class PrintOption {
 //        this.unitPrice = unitPrice;
 //    }
 
-    public PrintOption(Bureau bureau, Printer printer, Part part) throws InvalidArgumentException {
+    public PrintOption(Bureau bureau, Printer printer, Part part) throws Exception {
         if (bureau == null) {
-            throw new InvalidArgumentException(new String[]{"Bureau cannot be null."});
+            throw new Exception("Bureau cannot be null.");
         }
         if (printer == null) {
-            throw new InvalidArgumentException(new String[]{"Printer cannot be null."});
+            throw new Exception("Printer cannot be null.");
         }
         if (printer.getMaterials() == null) {
-            throw new InvalidArgumentException(new String[]{"Printer materials cannot be null."});
+            throw new Exception("Printer materials cannot be null.");
         }
         if (part == null) {
-            throw new InvalidArgumentException(new String[]{"Part cannot be null."});
+            throw new Exception("Part cannot be null.");
         }
         if (part.getMaterial() == null) {
-            throw new InvalidArgumentException(new String[]{"Part material cannot be null."});
+            throw new Exception("Part material cannot be null.");
         }
 
         this.bureau = bureau;
@@ -76,7 +76,7 @@ public class PrintOption {
         for (Printer printer : bureau.getPrinters()) {
             try {
                 printOptions.add(new PrintOption(bureau, printer, part));
-            } catch (InvalidArgumentException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
