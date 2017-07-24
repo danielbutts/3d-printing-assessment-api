@@ -1,7 +1,5 @@
 package com.github.danielbutts.partsanalyzer.model;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import java.util.ArrayList;
 import java.util.List;
 
