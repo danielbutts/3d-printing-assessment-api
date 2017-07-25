@@ -23,6 +23,7 @@ public class User {
         this.password = user.password;
         this.email = user.email;
         this.zipCode = user.zipCode;
+        this.isAdmin = user.isAdmin;
     }
 
     @Id
@@ -41,6 +42,7 @@ public class User {
     private String email;
     private String password;
     private String zipCode;
+    private Boolean isAdmin;
 
     @OneToMany
     @JoinTable(name="users_parts",
@@ -118,5 +120,13 @@ public class User {
 
     public void setParts(List<Part> parts) {
         this.parts = parts;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 }

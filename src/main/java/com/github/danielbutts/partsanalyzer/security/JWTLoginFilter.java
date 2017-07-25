@@ -51,10 +51,12 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         TokenAuthenticationService
                 .addAuthentication(res, auth.getName());
 
-        CustomUserDetails details = (CustomUserDetails)auth.getPrincipal();
+        CustomUserDetails details = (CustomUserDetails) auth.getPrincipal();
         User user = details.getUser();
-        res.addHeader("userId",user.getId().toString());
-        res.addHeader("username",user.getUsername());
-        res.addHeader("firstName",user.getFirstName());
+        res.addHeader("userId", user.getId().toString());
+        res.addHeader("username", user.getUsername());
+        res.addHeader("firstName", user.getFirstName());
+        Boolean isAdmin = (user.getAdmin() != null ? user.getAdmin() : false);
+        res.addHeader("isAdmin", String.valueOf(isAdmin));
     }
 }

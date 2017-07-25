@@ -13,7 +13,7 @@ public class PortfolioAnalysisApplication {
 
 	@GetMapping("")
 	public String hello() {
-		return "Hello!";
+		return "Welcome to the Parts Analysis API! Post your credentials to /users to authenticate and receive a JWT token.";
 	}
 
 	public static void main(String[] args) {

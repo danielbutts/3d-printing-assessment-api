@@ -3,7 +3,6 @@ package com.github.danielbutts.partsanalyzer.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by danielbutts on 7/8/17.
@@ -44,7 +43,6 @@ public class Part {
     private Long maxTurnaround;
     private String stlFilename;
 
-    @NotNull
     @Column(name="is_strength_critical", columnDefinition="boolean default false")
     private Boolean isStrengthCritical;
     private Float weight;
