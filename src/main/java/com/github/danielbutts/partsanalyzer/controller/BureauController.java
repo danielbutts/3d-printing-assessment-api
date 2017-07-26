@@ -62,8 +62,6 @@ public class BureauController {
                     continue;
                 } else {
                     for (Material material : materials) {
-//                        System.out.println("part material: "+part.getMaterial().getType());
-//                        System.out.println("part material: "+material.getType());
                         if (material.getType().equals(part.getMaterial().getType())) {
                             isValidPrinter = true;
                             List<Material> partMaterials = new ArrayList<Material>();

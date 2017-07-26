@@ -34,18 +34,23 @@ public class Part {
     private Long userId;
     @Transient
     private Long materialId;
+    @Transient
+    private String materialType;
     private Float width;
     private Float height;
     private Float depth;
     private Float volume;
+    private Float weight;
     private Float price;
     private Long orderSize;
     private Long maxTurnaround;
     private String stlFilename;
 
+    @Column(name="is_uploaded", columnDefinition="boolean default false")
+    private Boolean isUploaded;
+
     @Column(name="is_strength_critical", columnDefinition="boolean default false")
     private Boolean isStrengthCritical;
-    private Float weight;
 
     @Column(name="is_complete", columnDefinition="boolean default false")
     private Boolean isComplete;
@@ -200,5 +205,17 @@ public class Part {
 
     public void setStrengthCritical(Boolean strengthCritical) {
         isStrengthCritical = strengthCritical;
+    }
+
+    public Boolean getUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(Boolean uploaded) {
+        isUploaded = uploaded;
+    }
+
+    public String getMaterialType() {
+        return materialType;
     }
 }

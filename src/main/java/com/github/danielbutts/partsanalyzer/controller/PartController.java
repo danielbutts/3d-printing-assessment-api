@@ -63,6 +63,22 @@ public class PartController {
         return newPart;
     }
 
+    @PostMapping("/upload")
+    public Part createFromUpload(@RequestBody Part part) {
+
+        if (part.getMaterialType() != null) {
+            Material material = materialRepository.findByType(part.getMaterialType()).get(0);
+            part.setMaterial(material);
+        }
+        Part newPart = this.repository.save(part);
+
+        newPart.setUploaded(true);
+        User user = userRepository.findById(part.getUserId());
+        userRepository.addPartToUser(newPart.getId(), user.getId());
+        userRepository.save(user);
+        return newPart;
+    }
+
     @PatchMapping("")
     public Part update(@RequestBody Part part) {
         if (part.getMaterialId() != null) {

@@ -4,6 +4,8 @@ import com.github.danielbutts.partsanalyzer.model.Material;
 import com.github.danielbutts.partsanalyzer.repository.MaterialRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by danielbutts on 7/8/17.
  */
@@ -28,6 +30,12 @@ public class MaterialController {
     public Material getMeterialById(@PathVariable String id) {
         Long materialId =  Long.parseLong(id);
         return this.repository.findById(materialId);
+    }
+
+    @GetMapping("/type/{type}")
+    public Material getMaterialByType(@PathVariable String type) {
+        List<Material> materials = this.repository.findByType(type);
+        return materials.get(0);
     }
 
     @PostMapping("")

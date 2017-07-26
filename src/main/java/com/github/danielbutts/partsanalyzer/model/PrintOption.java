@@ -129,14 +129,6 @@ public class PrintOption {
 
         Double price = part.getVolume() * basePriceMultiplier * materialMultiplier *
                 processMultiplier * bureau.getCostFactor() * getQuantityDiscount(quantity);
-
-//        System.out.println("volume "+ part.getVolume());
-//        System.out.println("basePriceMultiplier "+ basePriceMultiplier);
-//        System.out.println("materialMultiplier "+ materialMultiplier);
-//        System.out.println("processMultiplier "+ processMultiplier);
-//        System.out.println("quantityDiscount "+ quantityDiscount);
-//        System.out.println("price "+ price);
-
         return price;
     }
 
