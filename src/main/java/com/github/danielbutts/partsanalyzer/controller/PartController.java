@@ -127,7 +127,7 @@ public class PartController {
         if (!part.getComplete()) {
             return null;
         }
-        Long quantity = part.getOrderSize() * 2;
+        Long quantity = Math.max(part.getOrderSize() * 2, 40);
 
         List<PrintOption> selectedPrintOptions = new ArrayList<PrintOption>();
 
